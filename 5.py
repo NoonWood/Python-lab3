@@ -1,6 +1,3 @@
-#!/usr/bin/python3
-# -*- coding: utf-8 -*-
-
 import re
 import sys
 from PyQt5.QtCore import Qt
@@ -72,16 +69,15 @@ class Example(QWidget):
         #QRadioButton
         grid.addWidget(self.radio1,6,1)
         grid.addWidget(self.radio2,7,1)
-        #---------------------------------------------------------
-        #---------Event Magic------------------------------------
+        
         buttonFormat.clicked.connect(self.buttonClicked)
         #---------------------------------------------------------
         self.setLayout(grid)
-        self.setGeometry(300, 300, 350, 300)
+        self.setGeometry(350, 350, 400, 350)
         self.setWindowTitle('Review')
         self.show()
+		
     def keyPressEvent(self, e):
-
         if e.key() == Qt.Key_Escape:
             self.close
    
@@ -93,7 +89,7 @@ class Example(QWidget):
         self.output_ = self.input_
         tempArr = []
         #------------------------------------------
-        #--------1st checkbox----------------------
+        #--------1st checkbox 'Удалить слова размером меньше n символов, n = '----------------------
         if (self.checkbox1.checkState()==2):
             n = self.spinBox1.value()
             splitInputArr = self.input_.split(' ')
@@ -102,16 +98,16 @@ class Example(QWidget):
                     tempArr.append(splitInputArr[i])
                 self.output_ = ' '.join(tempArr)
             self.lineEditResult.setText(self.output_)
-        #--------2nd checkbox----------------------
+        #--------2nd checkbox 'Заменить все цифры на *'----------------------
         if (self.checkbox2.checkState()==2):
             self.output_ = re.sub('\d','*',self.output_)    
             self.lineEditResult.setText(self.output_)
-        #--------3rd checkbox----------------------
+        #--------3rd checkbox 'Вставить по пробелу между символами'----------------------
         if (self.checkbox3.checkState()==2):
             #tempSubArr = list(self.output_)
             self.output_ = ' '.join(list(self.output_))
             self.lineEditResult.setText(self.output_)
-        #--------4th checkbox----------------------
+        #--------4th checkbox 'Сортировать слова в строке'----------------------
         if (self.checkbox4.checkState()==2) and (self.radio1.isChecked): #Size
             tempSplit = self.output_.split()
             tempSplit.sort(key=len)
